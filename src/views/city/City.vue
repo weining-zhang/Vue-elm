@@ -1,7 +1,9 @@
 <template>
   <div class="city_container">
     <HeadTop>
-      
+      <router-link to="/home" class="change_city">
+        <template #changecity> <div>切换城市</div> </template>
+      </router-link>
     </HeadTop>
   </div>
 </template>
