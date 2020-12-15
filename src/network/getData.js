@@ -20,3 +20,8 @@ export const hotCity = () => fetch('/v1/cities', {
 export const groupCity = () => fetch('/v1/cities', {
   type: 'group'
 })
+
+/**
+ * 获取当前所在城市
+ */
+export const currentCity = number => fetch('/v1/cities/' + number)

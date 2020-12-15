@@ -10,7 +10,7 @@
     </section>
 
     <section class="title_head ellipsis" v-if="headTitle">
-      <span class="title_text"> {{headTitle}} </span>
+      <span class="title_text">{{headTitle}}</span>
     </section>
 
     <router-link :to="userInfo ? '/profile' : '/login'" v-if="signinUp" class="head_login">
@@ -44,6 +44,24 @@
     z-index: 100;
     left: 0;
     top: 0;
+  }
+
+  .head_goback {
+    @include wh(14.04px, 23.4px);
+    left: 9.36px;
+    line-height: 63px;
+    margin-left: 9.36px;
+  }
+
+  .title_head {
+    @include center;
+    width: 50%;
+    color: #fff;
+    text-align: center;
+    .title_text {
+      @include sc(18.72px, #fff);
+      font-weight: bold;
+    }
   }
 
   .head_login {
