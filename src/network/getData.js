@@ -21,7 +21,18 @@ export const groupCity = () => fetch('/v1/cities', {
   type: 'group'
 })
 
+// ----------------------------------------------------------------------
+
 /**
  * 获取当前所在城市
  */
 export const currentCity = number => fetch('/v1/cities/' + number)
+
+/**
+ * 获取搜索地址
+ */
+export const searchPlace = (cityId, value) => fetch('/v1/pois', {
+  type: 'search',
+  city_id: cityId,
+  keyword: value
+})
