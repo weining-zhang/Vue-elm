@@ -106,10 +106,10 @@
           this.placeHistory.push(selectedPlace)
         }
         setStore('placeHistory', this.placeHistory)
-        this.$router.push('/home')
+        this.$router.push({path: '/msite', query: {geohash}})
       },
 
-      // 清空历史记录
+      // 清空历史搜索记录
       clearAll() {
         removeStore('placeHistory')
         this.initData()

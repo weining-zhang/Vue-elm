@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition name="router-fade" mode="out-in">
+      <router-view v-if="$route.meta.keepAlive"/>
+    </transition>
+    <transition name="router-fade" mode="out-in">
+      <router-view v-if="!$route.meta.keepAlive"/>
+    </transition>
     <svgIcon/>
   </div>
 </template>
@@ -19,4 +24,12 @@
 <style lang="scss">
   // @import "normalize-scss/sass/normalize/import-now";
   @import './assets/scss/common.scss';
+
+  .router-fade-enter-active, .router-fade-leave-active {
+    transition: opacity .3s;
+  }
+  
+	.router-fade-enter, .router-fade-leave-to {
+    opacity: 0;
+	}
 </style>
