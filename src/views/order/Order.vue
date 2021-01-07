@@ -1,12 +1,12 @@
 <template>
   <div>
-    profile
+    order
   </div>
 </template>
 
 <script>
   export default {
-    name: "Profile",
+    name: "Order",
     components:{},
   }
 </script>

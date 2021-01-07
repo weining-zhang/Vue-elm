@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeadTop>
+    <NavBar>
       <template #search>
         <router-link :to="'/search/geohash'" class="link_search">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -15,7 +15,7 @@
           <span class="title_text ellipsis">{{msiteTitle}}</span>
         </router-link>
       </template>
-    </HeadTop>
+    </NavBar>
 
     <nav class="msite_nav">
       <div class="swiper-container" v-if="foodTypes.length">
@@ -35,11 +35,23 @@
 
       <img src="assets/img/fl.svg" class="fl_back animation_opactiy" v-else>
     </nav>
+
+    <div class="shop_list_container">
+      <header class="shop_header">
+        <svg class="shop_icon">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>
+        </svg>
+        <span class="shop_header_title">附近商家</span>
+      </header>
+    </div>
+
+    <TabBar/>
   </div>
 </template>
 
 <script>
-  import HeadTop from 'components/header/Head.vue'
+  import NavBar from 'components/header/Head.vue'
+  import TabBar from 'components/footer/TabBar.vue'
   import { cityGuess, msiteAddress, msiteFoodTypes } from 'network/getData'
   import 'common/swiper.min.js'
   import 'assets/css/swiper.min.css'
@@ -47,7 +59,8 @@
   export default {
     name: "Msite",
     components:{
-      HeadTop,
+      NavBar,
+      TabBar
     },
     data() {
       return {
@@ -114,7 +127,7 @@
     height: 248px;
     padding-top: 49.1px;
     background-color: #fff;
-    border-bottom: 1px solid $bc;
+    border-bottom: 0.5px solid $bc;
     .swiper-container {
       @include wh(100%, auto);
       padding-bottom: 14px;
@@ -145,6 +158,25 @@
           @include sc(12.9px, #666);
           text-align: center;
         }
+      }
+    }
+  }
+
+  .shop_list_container {
+    margin-top: 9.4px;
+    border-top: 0.5px solid $bc;
+    background-color: #fff;
+    .shop_header {
+      .shop_icon {
+        @include wh(14px, 14px);
+        fill: #999;
+        margin-left: 14px;
+        vertical-align: middle
+      }
+      .shop_header_title {
+        @include font(12.9px, 37.4px);
+        padding-left: 6px;
+        color: #999;
       }
     }
   }

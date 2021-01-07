@@ -6,6 +6,7 @@ const City = () => import('views/city/City.vue')
 const Msite = () => import('views/msite/Msite.vue')
 const Food = () => import('views/food/Food.vue')
 const Search = () => import('views/search/Search.vue')
+const Order = () => import('views/order/Order.vue')
 const Login = () => import('views/login/Login.vue')
 const Profile = () => import('views/profile/Profile.vue')
 
@@ -46,6 +47,12 @@ const routes = [
   {
     path: '/search/:geohash',
     component: Search
+  },
+  
+  // 订单列表页
+  {
+    path: '/order',
+    component: Order
   },
 
   // 登录注册页
