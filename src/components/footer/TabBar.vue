@@ -51,12 +51,21 @@
 </template>
 
 <script>
+  // import {mapState} from 'vuex'
+
   export default {
     name: "TabBar",
-    components:{},
     methods: {
       gotoAddress(path) {
         this.$router.push(path)
+      }
+    },
+    computed: {
+      // ...mapState([
+      //   'geohash'
+      // ]),
+      geohash() {
+        return this.$store.state.geohash
       }
     }
   }

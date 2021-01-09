@@ -30,6 +30,7 @@
             </router-link>
           </div>
         </div>
+
         <div class="swiper-pagination"></div>
       </div>
 
@@ -42,6 +43,8 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>
         </svg>
         <span class="shop_header_title">附近商家</span>
+
+        <Shoplist v-if="hasGetData"/>
       </header>
     </div>
 
@@ -50,8 +53,10 @@
 </template>
 
 <script>
+  import {mapMutations} from 'vuex'
   import NavBar from 'components/header/Head.vue'
   import TabBar from 'components/footer/TabBar.vue'
+  import Shoplist from 'components/content/shops/Shoplist.vue'
   import { cityGuess, msiteAddress, msiteFoodTypes } from 'network/getData'
   import 'common/swiper.min.js'
   import 'assets/css/swiper.min.css'
@@ -60,7 +65,8 @@
     name: "Msite",
     components:{
       NavBar,
-      TabBar
+      TabBar,
+      Shoplist
     },
     data() {
       return {
@@ -68,12 +74,31 @@
         msiteTitle: '请选择地址...',                // Msite页面顶部标题
         foodTypes: [],                             // 食品分类列表
         imgBaseUrl: 'https://fuss10.elemecdn.com', //图片域名地址
+        hasGetData: false, // 是否已经获取地理位置数据，成功之后再获取商铺列表信息
       }
+    },
+    async created() {
+      // 保存当前路由的 geohash 到本组件的 data
+      if (!this.$route.query.geohash) {
+        const address = await cityGuess()
+        this.geohash = address.latitude + ',' + address.longitude
+      } else {
+        this.geohash = this.$route.query.geohash
+      }
+
+      // 保存 geohash 到vuex
+      this.SAVE_GEOHASH(this.geohash)
+
+      // 获取位置信息
+      let locatedPositon = await msiteAddress(this.geohash)
+      this.msiteTitle = locatedPositon.name
+
+      this.hasGetData = true
     },
     mounted() {
       // 获取导航食品分类列表
       msiteFoodTypes(this.geohash).then(res => {
-        console.log(res);
+        // console.log(res);
         let len = res.length
         let foodArr = []
         while (res.length) {
@@ -90,6 +115,10 @@
       })
     },
     methods: {
+      ...mapMutations([
+        'SAVE_GEOHASH'
+      ]),
+
       // 解码url地址，求去restaurant_category_id值
       getCategoryId(url) {
         let urlData = decodeURIComponent(url.split('=')[1].replace('&target_name',''));
