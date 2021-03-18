@@ -34,7 +34,7 @@
         <div class="swiper-pagination"></div>
       </div>
 
-      <img src="assets/img/fl.svg" class="fl_back animation_opactiy" v-else>
+      <img src="~assets/img/fl.svg" class="fl_back animation_opactiy" v-else>
     </nav>
 
     <div class="shop_list_container">

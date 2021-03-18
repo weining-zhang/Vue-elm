@@ -4,6 +4,7 @@ import Router from 'vue-router'
 const Home = () => import('views/home/Home.vue')
 const City = () => import('views/city/City.vue')
 const Msite = () => import('views/msite/Msite.vue')
+const Shop = () => import('views/shop/Shop.vue')
 const Food = () => import('views/food/Food.vue')
 const Search = () => import('views/search/Search.vue')
 const Order = () => import('views/order/Order.vue')
@@ -11,6 +12,7 @@ const Login = () => import('views/login/Login.vue')
 const Profile = () => import('views/profile/Profile.vue')
 
 Vue.use(Router)
+
 
 const routes = [
   {
@@ -47,6 +49,12 @@ const routes = [
   {
     path: '/search/:geohash',
     component: Search
+  },
+
+  // 商铺详情页
+  {
+    path: '/shop',
+    component: Shop
   },
   
   // 订单列表页
