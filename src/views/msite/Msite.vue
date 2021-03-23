@@ -44,7 +44,7 @@
         </svg>
         <span class="shop_header_title">附近商家</span>
 
-        <Shoplist v-if="hasGetData"/>
+        <Shoplist v-if="hasGetData" :geohash="geohash" />
       </header>
     </div>
 
