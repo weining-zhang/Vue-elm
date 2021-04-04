@@ -48,7 +48,7 @@
     },
     computed: {
       ...mapState(["latitude", "longitude"])
-    }, 
+    },
     methods: {
       // 初始化获取数据
       async initData() {
