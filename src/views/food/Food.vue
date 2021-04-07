@@ -78,7 +78,8 @@
   import NavBar from 'components/header/Head.vue'
   import Shoplist from 'components/content/shops/Shoplist.vue';
   import {
-    foodCategory
+    msiteAddress,
+    foodCategory,
   } from 'network/getData';
 
   export default {
@@ -111,6 +112,8 @@
       ...mapState(["latitude", "longitude"])
     },
     methods: {
+      ...mapMutations(["RECORD_ADDRESS"]),
+      
       // 初始化获取数据
       async initData() {
         // 获取从msite页面传递过来的参数
@@ -119,14 +122,30 @@
         this.foodTitle = this.headTitle;
         this.restaurant_category_id = this.$$route.query.restaurant_category_id;
 
+        // 防止刷新页面时，vuex状态丢失，经度纬度需要重新获取，并存入vuex
+        if (!this.latitude) {
+          let res = await msiteAddress(this.geohash);
+        // 记录当前经度纬度进入vuex
+          this.RECORD_ADDRESS(res);
+        }
+
         // 获取 category 分类左侧数据
         this.category = await foodCategory(this.latitude, this.longitude);
       },
 
 
       // 点击顶部三个选项，展示不同的列表，选中当前选项进行展示，同时收回其他选项
-      choose_type(type) {
-
+      async chooseType(type) {
+        if (this.sortBy !== type) {
+          this.sortBy = type;
+        } else {
+          // 再次点击相同选项时收回列表
+          this.sortBy = '';
+          if (type === 'food') {
+            // 将foodTitle 和 headTitle 进行同步
+            this.foodTitle = this.headTitle;
+          }
+        }
       },
 
       // 选中Category左侧列表的某个选项时，右侧渲染相应的sub_categories列表
